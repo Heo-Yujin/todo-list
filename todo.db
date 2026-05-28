@@ -1,0 +1,15 @@
+CREATE TABLE member (
+    idx INTEGER PRIMARY KEY AUTOINCREMENT,
+    uname TEXT,
+    uid TEXT UNIQUE,
+    upwd TEXT,
+    datetime TEXT
+);
+
+CREATE TABLE todolist (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    uid TEXT,
+    completed INTEGER DEFAULT 0,
+    datetime TEXT
+);
