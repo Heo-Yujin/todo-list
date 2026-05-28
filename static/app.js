@@ -1,4 +1,31 @@
-function load(){
+
+// ================= LOGIN =================
+function login(){
+    $.ajax({
+        url: "/login",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            uid: $("#uid").val(),
+            upwd: $("#upwd").val()
+        }),
+        success: function(res){
+            alert("로그인 성공");
+
+            $("#loginBox").hide();
+            $("#todoBox").show();
+
+            loadTodos();
+        },
+        error: function(){
+            alert("로그인 실패");
+        }
+    });
+}
+
+
+// ================= TODO LIST =================
+function loadTodos(){
     $.get("/todos", function(data){
         $("#list").empty();
 
@@ -14,33 +41,37 @@ function load(){
     });
 }
 
-function add(){
+
+// ================= ADD =================
+function addTodo(){
     $.ajax({
         url: "/todos",
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify({
             title: $("#title").val(),
-            uid: "admin"
+            uid: $("#uid").val()
         }),
-        success: load
+        success: loadTodos
     });
 }
 
+
+// ================= DONE =================
 function done(id){
     $.ajax({
         url: "/todos/" + id,
         type: "PUT",
-        success: load
+        success: loadTodos
     });
 }
 
+
+// ================= DELETE =================
 function del(id){
     $.ajax({
         url: "/todos/" + id,
         type: "DELETE",
-        success: load
+        success: loadTodos
     });
 }
-
-load();

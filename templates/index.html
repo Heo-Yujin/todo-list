@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Todo</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="utf-8">
+<title>Todo App</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-<h2>Todo List</h2>
+<!-- ================= LOGIN ================= -->
+<div id="loginBox">
+    <h2>Login</h2>
+    <input id="uid" placeholder="ID"><br>
+    <input id="upwd" type="password" placeholder="PASSWORD"><br>
+    <button onclick="login()">Login</button>
+</div>
 
-<input id="title" placeholder="할 일">
-<button onclick="add()">추가</button>
+<hr>
 
-<ul id="list"></ul>
+<!-- ================= TODO ================= -->
+<div id="todoBox" style="display:none;">
+    <h2>Todo List</h2>
+
+    <input id="title" placeholder="할 일 입력">
+    <button onclick="addTodo()">추가</button>
+
+    <ul id="list"></ul>
+</div>
 
 <script src="/static/app.js"></script>
 

@@ -19,7 +19,7 @@ def db_conn():
 
 
 # =========================
-# SQLite 자동 초기화
+# SQLite 자동 생성
 # =========================
 def init_sqlite():
     conn = db_conn()
@@ -62,6 +62,7 @@ def init_mysql():
     )
 
     cur = conn.cursor()
+
     cur.execute("CREATE DATABASE IF NOT EXISTS logdb")
     cur.execute("USE logdb")
 
@@ -79,7 +80,7 @@ def init_mysql():
 
 
 # =========================
-# MySQL 로그 저장
+# SQL 로그 저장
 # =========================
 def log_query(sql):
     try:
@@ -107,7 +108,15 @@ def log_query(sql):
 
 
 # =========================
-# 로그인 (간단 버전)
+# 메인 페이지
+# =========================
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+# =========================
+# 로그인
 # =========================
 @app.route("/login", methods=["POST"])
 def login():
@@ -127,14 +136,6 @@ def login():
         return jsonify({"msg": "login success"})
     else:
         return jsonify({"msg": "login fail"}), 401
-
-
-# =========================
-# 메인 페이지
-# =========================
-@app.route("/")
-def index():
-    return render_template("index.html")
 
 
 # =========================
@@ -165,6 +166,7 @@ def add_todo():
 
     conn = db_conn()
     cur = conn.cursor()
+
     cur.execute(sql, (data["title"], data["uid"], datetime.now()))
     conn.commit()
 
@@ -182,6 +184,7 @@ def done_todo(id):
 
     conn = db_conn()
     cur = conn.cursor()
+
     cur.execute(sql, (id,))
     conn.commit()
 
@@ -199,6 +202,7 @@ def delete_todo(id):
 
     conn = db_conn()
     cur = conn.cursor()
+
     cur.execute(sql, (id,))
     conn.commit()
 
